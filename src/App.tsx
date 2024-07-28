@@ -18,13 +18,21 @@
 */
 
 interface INotification {
-  id: number;
+  id?: number;
   img: string;
   name: string;
   content: string;
   time: string;
   subContent?: string;
   isMarked: boolean;
+}
+
+interface IMessageNotification extends INotification {
+  message: string;
+}
+
+interface ICommentNotification extends INotification {
+  img2: string;
 }
 
 const notificationData = [
@@ -74,6 +82,31 @@ const notificationData = [
   },
 ];
 
+const messageNotificationData = [
+  {
+    id: 1,
+    img: "/images/avatar-rizky-hasanuddin.webp",
+    name: "Rizky Hasanuddin",
+    content: "sent you a private message",
+    message:
+      "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game.",
+    time: "5 days ago",
+    isMarked: false,
+  },
+];
+
+const commentNotificationData = [
+  {
+    id: 1,
+    img: "/images/avatar-kimberly-smith.webp",
+    img2: "/images/image-chess.webp",
+    name: "kimberly Smith",
+    content: "commented on your picture",
+    time: "1 week ago",
+    isMarked: false,
+  },
+];
+
 function App() {
   return (
     <main>
@@ -87,30 +120,74 @@ function App() {
 }
 
 function NotificationPage() {
+  const data = notificationData;
+  const messageData = messageNotificationData;
+  const commentData = commentNotificationData;
   return (
     <div id="notification-page">
       <div className="notification-header">
         <h1>
-          Notifications <span>3</span>
+          Notifications <span>{3}</span>
         </h1>
         <button className="btn">Mark all as read</button>
       </div>
       <div className="notifications">
-        {notificationData.map((item) => {
-          return (
-            <Notification
-              key={item.id}
-              name={item.name}
-              content={item.content}
-              subContent={item.subContent}
-              img={item.img}
-              time={item.time}
-              isMarked={item.isMarked}
-            />
-          );
-        })}
-        <MessageNotification />
-        <CommentNotification />
+        <Notification
+          name={data[0].name}
+          img={data[0].img}
+          content={data[0].content}
+          subContent={data[0].subContent}
+          time={data[0].time}
+          isMarked={data[0].isMarked}
+        />
+        <Notification
+          name={data[1].name}
+          img={data[1].img}
+          content={data[1].content}
+          subContent={data[1].subContent}
+          time={data[1].time}
+          isMarked={data[1].isMarked}
+        />
+        <Notification
+          name={data[2].name}
+          img={data[2].img}
+          content={data[2].content}
+          subContent={data[2].subContent}
+          time={data[2].time}
+          isMarked={data[2].isMarked}
+        />
+        <MessageNotification
+          name={messageData[0].name}
+          img={messageData[0].img}
+          content={messageData[0].content}
+          message={messageData[0].message}
+          time={messageData[0].time}
+          isMarked={messageData[0].isMarked}
+        />
+        <CommentNotification
+          name={commentData[0].name}
+          img={commentData[0].img}
+          img2={commentData[0].img2}
+          content={commentData[0].content}
+          time={commentData[0].time}
+          isMarked={commentData[0].isMarked}
+        />
+        <Notification
+          name={data[3].name}
+          img={data[3].img}
+          content={data[3].content}
+          subContent={data[3].subContent}
+          time={data[3].time}
+          isMarked={data[3].isMarked}
+        />
+        <Notification
+          name={data[4].name}
+          img={data[4].img}
+          content={data[4].content}
+          subContent={data[4].subContent}
+          time={data[4].time}
+          isMarked={data[4].isMarked}
+        />
       </div>
     </div>
   );
@@ -123,7 +200,7 @@ function Notification({ name, img, content, time, subContent, isMarked }: INotif
       <div className="content">
         <p>
           <strong>{name}</strong> {content} <span>{subContent}</span>
-          {isMarked && <div className="circle-red"></div>}
+          {isMarked && <span className="circle-red"></span>}
         </p>
         <p>{time}</p>
       </div>
@@ -131,12 +208,40 @@ function Notification({ name, img, content, time, subContent, isMarked }: INotif
   );
 }
 
-function MessageNotification() {
-  return <div></div>;
+function MessageNotification({ img, isMarked, name, content, time, message }: IMessageNotification) {
+  return (
+    <div className={`notification ${isMarked && "marked"}`}>
+      <img src={img} alt={name} />
+      <div className="content">
+        <p>
+          <strong>{name}</strong> {content} <span></span>
+          {isMarked && <span className="circle-red"></span>}
+        </p>
+        <p>{time}</p>
+        <div className="message">
+          <p>{message}</p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-function CommentNotification() {
-  return <div></div>;
+function CommentNotification({ img, isMarked, name, content, time, img2 }: ICommentNotification) {
+  return (
+    <div className="row">
+      <div className={`notification ${isMarked && "marked"}`}>
+        <img src={img} alt={name} />
+        <div className="content">
+          <p>
+            <strong>{name}</strong> {content}
+            {isMarked && <span className="circle-red"></span>}
+          </p>
+          <p>{time}</p>
+        </div>
+      </div>
+      <img src={img2} alt={name} />
+    </div>
+  );
 }
 
 export default App;

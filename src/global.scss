@@ -62,6 +62,14 @@ body {
 
   .notifications {
     margin-top: 1rem;
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      img {
+        width: 45px;
+      }
+    }
     .notification {
       display: flex;
       align-items: center;
@@ -81,15 +89,6 @@ body {
           color: $grayish-blue;
           margin-bottom: 5px;
           line-height: 1.4;
-          .circle-red {
-            display: inline-block;
-            margin-left: 5px;
-            margin-bottom: 1px;
-            width: 8px;
-            height: 8px;
-            background-color: $red;
-            border-radius: 50%;
-          }
           span {
             color: $dark-grayish-blue;
             font-weight: 800;
@@ -100,6 +99,20 @@ body {
           strong {
             color: $very-dark-grayish-blue;
           }
+        }
+        .circle-red {
+          display: inline-block;
+          margin-left: 5px;
+          margin-bottom: 1px;
+          width: 8px;
+          height: 8px;
+          background-color: $red;
+          border-radius: 50%;
+        }
+        .message {
+          padding: 15px;
+          border: 1px solid $light-grayish-blue-2;
+          border-radius: 5px;
         }
       }
     }
