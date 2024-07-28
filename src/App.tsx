@@ -17,6 +17,8 @@
     - See hover and focus states for all interactive elements on the page
 */
 
+import { useState } from "react";
+
 interface INotification {
   id?: number;
   img: string;
@@ -123,13 +125,22 @@ function NotificationPage() {
   const data = notificationData;
   const messageData = messageNotificationData;
   const commentData = commentNotificationData;
+
+  const [isMarked, setIsMarked] = useState(true);
+
+  function handleMarked() {
+    setIsMarked(false);
+  }
+
   return (
     <div id="notification-page">
       <div className="notification-header">
         <h1>
-          Notifications <span>{3}</span>
+          Notifications <span>{isMarked ? 3 : 0}</span>
         </h1>
-        <button className="btn">Mark all as read</button>
+        <button className="btn" onClick={handleMarked}>
+          Mark all as read
+        </button>
       </div>
       <div className="notifications">
         <Notification
@@ -138,7 +149,7 @@ function NotificationPage() {
           content={data[0].content}
           subContent={data[0].subContent}
           time={data[0].time}
-          isMarked={data[0].isMarked}
+          isMarked={isMarked}
         />
         <Notification
           name={data[1].name}
@@ -146,7 +157,7 @@ function NotificationPage() {
           content={data[1].content}
           subContent={data[1].subContent}
           time={data[1].time}
-          isMarked={data[1].isMarked}
+          isMarked={isMarked}
         />
         <Notification
           name={data[2].name}
@@ -154,7 +165,7 @@ function NotificationPage() {
           content={data[2].content}
           subContent={data[2].subContent}
           time={data[2].time}
-          isMarked={data[2].isMarked}
+          isMarked={isMarked}
         />
         <MessageNotification
           name={messageData[0].name}
