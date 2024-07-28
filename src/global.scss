@@ -72,16 +72,30 @@ body {
       }
       margin-top: 30px;
 
-      &.selected {
+      &.marked {
         background-color: $very-light-grayish-blue;
         border-radius: 10px;
       }
       .content {
         p {
           color: $grayish-blue;
+          margin-bottom: 5px;
+          line-height: 1.4;
+          .circle-red {
+            display: inline-block;
+            margin-left: 5px;
+            margin-bottom: 1px;
+            width: 8px;
+            height: 8px;
+            background-color: $red;
+            border-radius: 50%;
+          }
           span {
             color: $dark-grayish-blue;
             font-weight: 800;
+            &.group {
+              color: $blue;
+            }
           }
           strong {
             color: $very-dark-grayish-blue;
